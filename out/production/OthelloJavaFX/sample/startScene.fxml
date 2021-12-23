@@ -9,33 +9,28 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
-   <children>
-      <VBox spacing="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="10.0">
-         <children>
-            <Label text="Othello">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Label>
-            <Label text="A two-player board game" />
-            <HBox prefWidth="200.0" spacing="20.0">
-               <children>
-                  <Label text="Player 1" />
-                  <TextField HBox.hgrow="ALWAYS" />
-               </children>
-            </HBox>
-            <HBox spacing="20.0">
-               <children>
-                  <Label text="Player 2" />
-                  <TextField HBox.hgrow="ALWAYS" />
-               </children>
-            </HBox>
-            <Button mnemonicParsing="false" onAction="#switchToGame" text="Start Game!" />
-         </children>
-         <padding>
-            <Insets bottom="50.0" left="70.0" right="70.0" top="50.0" />
-         </padding>
-      </VBox>
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="sample.Controller">
+   <VBox spacing="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0"
+         AnchorPane.topAnchor="10.0">
+      <padding>
+         <Insets bottom="50.0" left="70.0" right="70.0" top="50.0"/>
+      </padding>
+      <Label text="Othello">
+         <font>
+            <Font size="36.0"/>
+         </font>
+      </Label>
+      <Label text="A two-player board game"/>
+      <HBox prefWidth="200.0" spacing="20.0">
+         <Label text="Player 1"/>
+         <TextField fx:id="p1Name" HBox.hgrow="ALWAYS"/>
+      </HBox>
+      <HBox spacing="20.0">
+         <Label text="Player 2"/>
+         <TextField HBox.hgrow="ALWAYS"/>
+      </HBox>
+      <Button mnemonicParsing="false" onAction="#switchToGame" text="Start Game!"/>
+   </VBox>
 </AnchorPane>
