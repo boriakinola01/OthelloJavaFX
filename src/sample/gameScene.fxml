@@ -9,14 +9,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.Rectangle?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Board">
    <children>
-      <BorderPane layoutX="-1.0" layoutY="1.0" prefHeight="518.0" prefWidth="610.0">
+      <BorderPane layoutX="-1.0" layoutY="1.0">
          <top>
-            <HBox prefHeight="18.0" prefWidth="588.0" spacing="5.0" style="-fx-background-color: #bec75d#bec75d;" BorderPane.alignment="CENTER">
+            <HBox prefHeight="24.0" prefWidth="606.0" spacing="5.0" style="-fx-background-color: #F4DF4EFF#F4DF4EFF;" BorderPane.alignment="CENTER">
                <children>
                   <Label text="P1Name" />
                   <Circle fill="WHITE" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
@@ -34,9 +32,9 @@
             </HBox>
          </top>
          <bottom>
-            <HBox prefHeight="36.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <HBox prefHeight="32.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Made by Bee 2021" />
+                  <Label prefHeight="17.0" prefWidth="116.0" text="Made by Bee 2021" />
                   <Region prefHeight="40.0" prefWidth="424.0" HBox.hgrow="ALWAYS" />
                   <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="89.0" text="End Game" />
                </children>
@@ -46,11 +44,7 @@
             </HBox>
          </bottom>
          <center>
-            <Pane>
-               <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffac4e" height="442.0" stroke="BLACK" strokeType="INSIDE" width="594.0" />
-               </children>
-            </Pane>
+            <Pane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #F4DF4EFF#F4DF4EFF;" />
          </center>
       </BorderPane>
    </children>
