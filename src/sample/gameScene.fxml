@@ -49,7 +49,7 @@
                <children>
                   <Pane layoutX="5.0" layoutY="-9.0" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #F4DF4EFF#F4DF4EFF;">
                      <children>
-                        // Horizontal lines on the board
+                        <!-- Horizontal lines on the board -->
                         <Line endX="600.0"/>
                         <Line endX="600.0" layoutY="75.0"/>
                         <Line endX="600.0" layoutY="150.0"/>
@@ -59,7 +59,7 @@
                         <Line endX="600.0" layoutY="450.0"/>
                         <Line endX="600.0" layoutY="525.0"/>
                         <Line endX="600.0" layoutY="600.0"/>
-                        // Vertical lines on the board
+                        <!-- Vertical lines on the board -->
                         <Line endY="600.0"/>
                         <Line endY="600.0" layoutX="75.0"/>
                         <Line endY="600.0" layoutX="150.0"/>

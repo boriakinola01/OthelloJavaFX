@@ -29,7 +29,7 @@
       </HBox>
       <HBox spacing="20.0">
          <Label text="Player 2"/>
-         <TextField HBox.hgrow="ALWAYS"/>
+         <TextField fx:id="p2Name" HBox.hgrow="ALWAYS"/>
       </HBox>
       <Button mnemonicParsing="false" onAction="#switchToGame" text="Start Game!"/>
    </VBox>

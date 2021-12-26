@@ -7,7 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Control;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,8 +16,13 @@ import java.util.Objects;
 
 public class Controller extends Control {
 
+    @FXML
+    TextField p1Name;
+    @FXML
+    TextField p2Name;
 
-    public void switchToGame(ActionEvent event)  {
+
+    public void switchToGame(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("gameScene.fxml")));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -27,7 +32,6 @@ public class Controller extends Control {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
     }
 }
