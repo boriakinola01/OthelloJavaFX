@@ -1,11 +1,12 @@
 package sample;
 
-
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 
 
 public class Board{
@@ -24,18 +25,14 @@ public class Board{
     public void initialize(){
 
         boardPane.setOnMouseClicked(mouseEvent -> {
-            System.out.println(mouseEvent.getSceneX()/75);
-            System.out.println(mouseEvent.getSceneY()/75);
-            placePiece(mouseEvent.getSceneX(), mouseEvent.getSceneY());
+            System.out.println(mouseEvent.getScreenX());
+            System.out.println(mouseEvent.getScreenY());
+            try{
+                placePiece(mouseEvent.getX(), mouseEvent.getY());
+            } catch(Exception e){
+            }
 
         });
-
-//        for(int i =0; i<SIZE; i++){
-//            for (int j =0; j< SIZE; j++){
-//                pieceArray[i][j] = new Piece((i*75)+37.5, (j*75)+37.5,32);
-//                boardPane.getChildren().add(pieceArray[i][j]);
-//            }
-//        }
 
     }
 
@@ -53,5 +50,6 @@ public class Board{
             }
         }
     }
+
 
 }
