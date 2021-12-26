@@ -47,7 +47,7 @@
          <center>
             <AnchorPane BorderPane.alignment="CENTER">
                <children>
-                  <Pane layoutX="5.0" layoutY="-9.0" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #F4DF4EFF#F4DF4EFF;">
+                  <Pane layoutX="5.0" layoutY="-9.0" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #F4DF4EFF#F4DF4EFF;" fx:id="boardPane">
                      <children>
                         <!-- Horizontal lines on the board -->
                         <Line endX="600.0"/>
