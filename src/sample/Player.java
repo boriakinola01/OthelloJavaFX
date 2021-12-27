@@ -8,8 +8,7 @@ public class Player {
     protected String name;
     protected int score;
 
-    public Player(String name, Color color){
-        this.name = name;
+    public Player(Color color){
         this.color = color;
     }
 
@@ -28,5 +27,11 @@ public class Player {
     public String getName() {
         return name;
     }
+
+    public void setName(String s){
+        this.name = s;
+    }
+
+
 
 }

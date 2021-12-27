@@ -1,39 +1,56 @@
 package sample;
 
-import javafx.event.EventHandler;
+
 import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 
+import java.io.IOException;
+import java.util.Objects;
 
 public class Board{
 
+
     @FXML
     Pane boardPane;
+    @FXML
+    Label p1Name;
+    @FXML
+    Label p2Name;
+    @FXML
+    Label p1Score;
+    @FXML
+    Label p2Score;
+
+    private Player p1;
+    private Player p2;
 
     private final int SIZE = 8;
     private Piece[][] pieceArray;
 
     public Board(){
+        p1 = new Player(Color.WHITE);
+        p2 = new Player(Color.BLACK);
         pieceArray = new Piece[SIZE][SIZE];
         initialisePieces();
+        resetGame();
     }
 
     public void initialize(){
 
+        p1Score.setText(Integer.toString(p1.getScore()));
+        p2Score.setText(Integer.toString(p2.getScore()));
+
+        updateScore();
+
         boardPane.setOnMouseClicked(mouseEvent -> {
-            System.out.println(mouseEvent.getScreenX());
-            System.out.println(mouseEvent.getScreenY());
             try{
                 placePiece(mouseEvent.getX(), mouseEvent.getY());
             } catch(Exception e){
             }
-
         });
-
     }
 
     public void placePiece(double x, double y){
@@ -41,6 +58,7 @@ public class Board{
         newX = (int) x/75;
         newY = (int) y/75;
         boardPane.getChildren().add(pieceArray[newX][newY]);
+
     }
 
     public void initialisePieces(){
@@ -51,5 +69,17 @@ public class Board{
         }
     }
 
+    public void setNames(String playerOneName, String playerTwoName){
+        p1Name.setText(playerOneName);
+        p2Name.setText(playerTwoName);
+    }
+
+    public void resetGame(){
+
+    }
+
+    public void updateScore(){
+
+    }
 
 }

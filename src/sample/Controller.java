@@ -23,8 +23,15 @@ public class Controller extends Control {
     @FXML
     TextField p2Name;
 
+    public String getP1Name() {
+        return p1Name.getText();
+    }
 
+    public String getP2Name() {
+        return p2Name.getText();
+    }
 
+    @FXML
     public void switchToGame(ActionEvent event) {
 //        if(p1Name.getText().equals("") || p2Name.getText().equals("")){
 //            Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -38,7 +45,10 @@ public class Controller extends Control {
 //            alert.show();
 //        } else{
             try {
-                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("gameScene.fxml")));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("gameScene.fxml"));
+                Parent root = (Parent) loader.load();
+                Board board = loader.getController();
+                board.setNames(getP1Name(), getP2Name());
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 Scene scene = new Scene(root);
                 stage.setScene(scene);

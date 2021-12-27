@@ -17,15 +17,15 @@
          <top>
             <HBox prefHeight="24.0" prefWidth="606.0" spacing="5.0" style="-fx-background-color: #F4DF4EFF#F4DF4EFF;" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="P1Name" />
+                  <Label text="P1Name" fx:id="p1Name"/>
                   <Circle fill="WHITE" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Label text="p1Score" />
+                  <Label text="p1Score" fx:id="p1Score"/>
                   <Region HBox.hgrow="ALWAYS" />
                   <Label text="OTHELLO" />
                   <Region HBox.hgrow="ALWAYS" />
-                  <Label text="p2Name" />
+                  <Label text="p2Name" fx:id="p2Name"/>
                   <Circle radius="9.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Label text="p2Score" />
+                  <Label text="p2Score" fx:id="p2Score"/>
                </children>
                <BorderPane.margin>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
