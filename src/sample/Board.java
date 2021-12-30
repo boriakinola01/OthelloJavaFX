@@ -60,6 +60,7 @@ public class Board{
             pieceArray[newX][newY].setFill(c);
         } else {
         }
+
     }
 
     public void initialisePieces(){
@@ -88,15 +89,30 @@ public class Board{
 
     }
 
+    public void updateScores(){
+        int x = 0, y = 0;
+
+        for(int i =0; i < SIZE; i++){
+            for (int j =0; j < SIZE; j++){
+                if(pieceArray[i][j].getFill() == p1.getColor())
+                    x++;
+
+                if(pieceArray[i][j].getFill() == p2.getColor())
+                    y++;
+            }
+        }
+
+        p1.setScore(x);
+        p2.setScore(y);
+    }
+
     public void arrayToBoard(){
         this.boardPane.getChildren().removeAll();
-
         for(int i =0; i < SIZE; i++){
             for (int j =0; j < SIZE; j++){
                 this.boardPane.getChildren().add(pieceArray[i][j]);
             }
         }
-
     }
 
 
