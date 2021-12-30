@@ -12,7 +12,6 @@ import java.util.Objects;
 
 public class Board{
 
-
     @FXML
     Pane boardPane;
     @FXML
@@ -31,11 +30,11 @@ public class Board{
     private Piece[][] pieceArray;
 
     public Board(){
+        boardPane = new Pane();
         p1 = new Player(Color.WHITE);
         p2 = new Player(Color.BLACK);
         pieceArray = new Piece[SIZE][SIZE];
         initialisePieces();
-        resetGame();
     }
 
     public void initialize(){
@@ -43,30 +42,40 @@ public class Board{
         p1Score.setText(Integer.toString(p1.getScore()));
         p2Score.setText(Integer.toString(p2.getScore()));
 
-        updateScore();
+        arrayToBoard();
 
         boardPane.setOnMouseClicked(mouseEvent -> {
             try{
-                placePiece(mouseEvent.getX(), mouseEvent.getY());
+                placePiece(Color.BLUE,  mouseEvent.getX()/75, mouseEvent.getY()/75);
             } catch(Exception e){
             }
         });
     }
 
-    public void placePiece(double x, double y){
+    public void placePiece(Color c, double x, double y){
         int newX, newY;
-        newX = (int) x/75;
-        newY = (int) y/75;
-        boardPane.getChildren().add(pieceArray[newX][newY]);
-
+        newX = (int) x;
+        newY = (int) y;
+        if(pieceArray[newX][newY].getFill() == Color.TRANSPARENT){
+            pieceArray[newX][newY].setFill(c);
+        } else {
+        }
     }
 
     public void initialisePieces(){
         for(int i =0; i < SIZE; i++){
             for (int j =0; j < SIZE; j++){
                 pieceArray[i][j] = new Piece((i*75)+37.5, ((j*75)+37.5),32);
+                pieceArray[i][j].setFill(Color.TRANSPARENT);
             }
         }
+        p1.setScore(2);
+        p2.setScore(2);
+
+        pieceArray[3][3].setFill(p1.getColor());
+        pieceArray[4][4].setFill(p1.getColor());
+        pieceArray[3][4].setFill(p2.getColor());
+        pieceArray[4][3].setFill(p2.getColor());
     }
 
     public void setNames(String playerOneName, String playerTwoName){
@@ -74,12 +83,21 @@ public class Board{
         p2Name.setText(playerTwoName);
     }
 
-    public void resetGame(){
+
+    public void endGame(){
 
     }
 
-    public void updateScore(){
+    public void arrayToBoard(){
+        this.boardPane.getChildren().removeAll();
+
+        for(int i =0; i < SIZE; i++){
+            for (int j =0; j < SIZE; j++){
+                this.boardPane.getChildren().add(pieceArray[i][j]);
+            }
+        }
 
     }
+
 
 }
