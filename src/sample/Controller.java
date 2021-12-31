@@ -6,14 +6,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 
 
 public class Controller extends Control {
@@ -46,7 +43,7 @@ public class Controller extends Control {
 //        } else{
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("gameScene.fxml"));
-                Parent root = (Parent) loader.load();
+                Parent root = loader.load();
                 Board board = loader.getController();
                 board.setNames(getP1Name(), getP2Name());
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
