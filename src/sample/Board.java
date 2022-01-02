@@ -1,143 +1,87 @@
 package sample;
 
-
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 public class Board{
 
-    @FXML
-    Pane boardPane;
-    @FXML
-    Label p1Name;
-    @FXML
-    Label p2Name;
-    @FXML
-    Label p1Score;
-    @FXML
-    Label p2Score;
 
-    private Player p1;
-    private Player p2;
 
     private final int SIZE = 8;
-    private Piece[][] pieceArray;
-
+    public Piece[][] pieces = new Piece[SIZE][SIZE];
     private int numOfTiles;
 
-    public Board(){
-        boardPane = new Pane();
-        p1 = new Player(Color.WHITE);
-        p2 = new Player(Color.BLACK);
-        pieceArray = new Piece[SIZE][SIZE];
-        initialisePieces();
+    public int getSIZE() {
+        return SIZE;
     }
 
-    public void initialize(){
-
-        p1Score.setText(Integer.toString(p1.getScore()));
-        p2Score.setText(Integer.toString(p2.getScore()));
-
-        arrayToBoard();
-
-        boardPane.setOnMouseClicked(mouseEvent -> {
-            try{
-                playGame(mouseEvent.getX()/75, mouseEvent.getY()/75);
-            } catch(Exception ignored){
-            }
-        });
+    public Piece[][] getPieces() {
+        return pieces;
     }
 
-    public void playGame(double row, double col){
-        while(numOfTiles != SIZE*SIZE){
-            if(movesAvailable(p1)){
-                placePiece(p1.getColor(), row, col);
-            }
+    public void setPieces(int x, int y, Color c){
+        this.pieces[x][y].setFill(c);
+    }
 
-            if(movesAvailable(p2)){
-                placePiece(p2.getColor(), row, col);
-            }
+    public void iniSetPiece(int x, int y, Piece piece){
+        this.pieces[x][y] = piece;
+    }
 
-            if(!movesAvailable(p1) && !movesAvailable(p2))
-                endGame();
-        }
+    public int getNumOfTiles() {
+        return numOfTiles;
+    }
+
+    public void setNumOfTiles(int numOfTiles) {
+        this.numOfTiles = numOfTiles;
+    }
+
+    public boolean isNotEmpty(int row, int col){
+        if(this.pieces[row][col].getFill() == Color.BLACK)
+            return true;
+        if(this.pieces[row][col].getFill() == Color.WHITE)
+            return true;
+
+        return false;
     }
 
     public void placePiece(Color c, double x, double y){
         int newX, newY;
         newX = (int) x;
         newY = (int) y;
+
         if(checkMove(c, newX, newY)){
-            if(pieceArray[newX][newY].getFill() == Color.TRANSPARENT){
-                pieceArray[newX][newY].setFill(c);
-            }
+            if(this.pieces[newX][newY].getFill() == Color.TRANSPARENT)
+                this.pieces[newX][newY].setFill(c);
+
         }
 
         makeMove(c, newX, newY);
-        updateScores();
+        numOfTiles++;
     }
-
-    public void initialisePieces(){
-        for(int i =0; i < SIZE; i++){
-            for (int j =0; j < SIZE; j++){
-                pieceArray[i][j] = new Piece((i*75)+37.5, ((j*75)+37.5),32);
-                pieceArray[i][j].setFill(Color.TRANSPARENT);
-            }
-        }
-        p1.setScore(2);
-        p2.setScore(2);
-
-        pieceArray[3][3].setFill(p1.getColor());
-        pieceArray[4][4].setFill(p1.getColor());
-        pieceArray[3][4].setFill(p2.getColor());
-        pieceArray[4][3].setFill(p2.getColor());
-        numOfTiles = 4;
-    }
-
-    public void setNames(String playerOneName, String playerTwoName){
-        p1Name.setText(playerOneName);
-        p2Name.setText(playerTwoName);
-    }
-
 
     public void endGame(){
 
     }
 
-    public void updateScores(){
-        int x = 0, y = 0;
+    public String getScores(Player p){
+        int x = 0;
 
         for(int i =0; i < SIZE; i++){
             for (int j =0; j < SIZE; j++){
-                if(pieceArray[i][j].getFill() == p1.getColor())
+                if(this.pieces[i][j].getFill() == p.getColor())
                     x++;
 
-                if(pieceArray[i][j].getFill() == p2.getColor())
-                    y++;
             }
         }
 
-        p1.setScore(x);
-        p2.setScore(y);
+        return Integer.toString(x);
+
     }
 
-    public void arrayToBoard(){
-        this.boardPane.getChildren().removeAll();
-        for(int i =0; i < SIZE; i++){
-            for (int j =0; j < SIZE; j++){
-                this.boardPane.getChildren().add(pieceArray[i][j]);
-            }
-        }
-    }
-
-    public boolean checkMove(Color c, double row, double col){
+    public boolean checkMove(Color c, int row, int col){
 
         for(int i = -1; i <= 1; i++){
             for (int j = -1; j <= 1; ++j) {
-
-                boolean check = validMove(c, i, j, (int)row, (int)col);
+                boolean check = validMove(c, i, j, row, col);
                 if(check)
                     return true;
             }
@@ -155,7 +99,7 @@ public class Board{
         if((row+dRow < 0) || (row+dRow > SIZE-1) || (col+dCol < 0) || (col+dCol > SIZE-1))
             return false;
 
-        if(pieceArray[row+dRow][col+dCol].getFill() != opp)
+        if(this.pieces[row+dRow][col+dCol].getFill() != opp)
             return false;
 
         if((row+dRow+dRow < 0) || (row+dRow+dRow > 7) || (col+dCol+dCol < 0) || (col+dCol+dCol > 7))
@@ -167,7 +111,7 @@ public class Board{
     }
 
     public boolean lineCheck(Color c, int dRow, int dCol, int row, int col){
-        if(pieceArray[row][col].getFill() == c)
+        if(this.pieces[row][col].getFill() == c)
             return true;
 
         if((row+dRow < 0) || (row+dRow > SIZE-1) || (col+dCol < 0) || (col+dCol > SIZE-1))
@@ -180,7 +124,7 @@ public class Board{
 
         for(int row = 0; row<SIZE; row++){
             for(int col = 0; col<SIZE; col++){
-                if(pieceArray[row][col].getFill() == Color.TRANSPARENT){
+                if(this.pieces[row][col].getFill() == Color.TRANSPARENT){
                     for(int i = -1; i <= 1; i++){
                         for (int j = -1; j <= 1; ++j) {
                             boolean check = validMove(p.getColor(), i, j, row, col);
@@ -196,7 +140,7 @@ public class Board{
     }
 
     public void makeMove(Color c, int row, int col){
-        Color opp = Color.TRANSPARENT;
+        Color opp = null;
         int dRow, dCol, x, y;
 
         if(c == Color.BLACK)
@@ -207,12 +151,12 @@ public class Board{
         for(dCol = -1; dCol <= 1; dCol++){
             for(dRow = -1; dRow <= 1; dRow++){
 
-                if((row+dRow < 0) || (row+dRow > SIZE) ||
-                        (col+dCol < 0) || (col+dCol > SIZE) ||
+                if((row+dRow < 0) || (row+dRow > SIZE-1) ||
+                        (col+dCol < 0) || (col+dCol > SIZE-1) ||
                         (dRow == 0 & dCol == 0))
                     continue;
 
-                if(pieceArray[row+dRow][col+dCol].getFill() == opp){
+                if(this.pieces[row+dRow][col+dCol].getFill() == opp){
 
                     x = row+dRow;
                     y = col+dCol;
@@ -225,12 +169,12 @@ public class Board{
                         if(x < 0 || x > SIZE-1 || y <0 || y > SIZE-1)
                             break;
 
-                        if(pieceArray[x][y].getFill() == Color.TRANSPARENT)
+                        if(this.pieces[x][y].getFill() == Color.TRANSPARENT)
                             break;
 
-                        if(pieceArray[x][y].getFill() == c){
-                            while(pieceArray[x-=dRow][y-=dCol].getFill() == opp)
-                                pieceArray[x][y].setFill(c);
+                        if(this.pieces[x][y].getFill() == c){
+                            while(this.pieces[x-=dRow][y-=dCol].getFill() == opp)
+                                this.pieces[x][y].setFill(c);
                             break;
                         }
                     }

@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 
-public class Controller extends Control {
+public class startController extends Control {
 
     @FXML
     TextField p1Name;
@@ -44,8 +44,8 @@ public class Controller extends Control {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("gameScene.fxml"));
                 Parent root = loader.load();
-                Board board = loader.getController();
-                board.setNames(getP1Name(), getP2Name());
+                gameController game = loader.getController();
+                game.setNames(getP1Name(), getP2Name());
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 Scene scene = new Scene(root);
                 stage.setScene(scene);

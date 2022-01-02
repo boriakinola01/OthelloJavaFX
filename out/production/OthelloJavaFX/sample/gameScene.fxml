@@ -11,60 +11,59 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Board">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.gameController">
    <BorderPane layoutX="1.0" layoutY="1.0">
       <top>
-         <HBox prefHeight="24.0" prefWidth="606.0" spacing="5.0" style="-fx-background-color: #F4DF4EFF#F4DF4EFF;"
-               BorderPane.alignment="CENTER">
+         <HBox prefHeight="24.0" prefWidth="606.0" spacing="5.0" style="-fx-background-color: #F4DF4EFF#F4DF4EFF;" BorderPane.alignment="CENTER">
             <BorderPane.margin>
-               <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+               <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
             </BorderPane.margin>
-            <Label text="P1Name" fx:id="p1Name"/>
-            <Circle fill="WHITE" radius="9.0" stroke="BLACK" strokeType="INSIDE"/>
-            <Label text="p1Score" fx:id="p1Score"/>
-            <Region HBox.hgrow="ALWAYS"/>
-            <Label text="OTHELLO"/>
-            <Region HBox.hgrow="ALWAYS"/>
-            <Label text="p2Name" fx:id="p2Name"/>
-            <Circle radius="9.0" stroke="BLACK" strokeType="INSIDE"/>
-            <Label text="p2Score" fx:id="p2Score"/>
+            <Label fx:id="p1Name" text="P1Name" />
+            <Circle fill="WHITE" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label fx:id="p1Score" text="p1Score" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label text="OTHELLO" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="p2Name" text="p2Name" />
+            <Circle radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label fx:id="p2Score" text="p2Score" />
          </HBox>
       </top>
       <bottom>
          <HBox prefHeight="32.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <BorderPane.margin>
-               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </BorderPane.margin>
-            <Label prefHeight="17.0" prefWidth="116.0" text="Made by Bee 2021"/>
-            <Region prefHeight="40.0" prefWidth="424.0" HBox.hgrow="ALWAYS"/>
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="89.0" text="End Game" onAction="#endGame"/>
+            <Label prefHeight="17.0" prefWidth="116.0" text="Made by Bee 2021" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" onAction="#restartGame" text="Restart" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" onAction="#endGame" prefHeight="26.0" prefWidth="89.0" text="End Game" />
          </HBox>
       </bottom>
       <center>
          <AnchorPane prefHeight="600.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-            <Pane fx:id="boardPane" layoutX="5.0" prefHeight="600.0" prefWidth="600.0"
-                  style="-fx-background-color: #F4DF4EFF#F4DF4EFF #F4DF4EFF#F4DF4EFF;">
+            <Pane fx:id="boardPane" layoutX="5.0" onMouseClicked="#play" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #F4DF4EFF#F4DF4EFF #F4DF4EFF#F4DF4EFF;">
                <!-- Horizontal lines on the board -->
-               <Line endX="600.0"/>
-               <Line endX="600.0" layoutY="75.0"/>
-               <Line endX="600.0" layoutY="150.0"/>
-               <Line endX="600.0" layoutY="225.0"/>
-               <Line endX="600.0" layoutY="300.0"/>
-               <Line endX="600.0" layoutY="375.0"/>
-               <Line endX="600.0" layoutY="450.0"/>
-               <Line endX="600.0" layoutY="525.0"/>
-               <Line endX="600.0" layoutY="600.0"/>
+               <Line endX="600.0" />
+               <Line endX="600.0" layoutY="75.0" />
+               <Line endX="600.0" layoutY="150.0" />
+               <Line endX="600.0" layoutY="225.0" />
+               <Line endX="600.0" layoutY="300.0" />
+               <Line endX="600.0" layoutY="375.0" />
+               <Line endX="600.0" layoutY="450.0" />
+               <Line endX="600.0" layoutY="525.0" />
+               <Line endX="600.0" layoutY="600.0" />
                <!-- Vertical lines on the board -->
-               <Line endY="600.0"/>
-               <Line endY="600.0" layoutX="75.0"/>
-               <Line endY="600.0" layoutX="150.0"/>
-               <Line endY="600.0" layoutX="225.0"/>
-               <Line endY="600.0" layoutX="300.0"/>
-               <Line endY="600.0" layoutX="375.0"/>
-               <Line endY="600.0" layoutX="450.0"/>
-               <Line endY="600.0" layoutX="525.0"/>
-               <Line endY="600.0" layoutX="600.0"/>
+               <Line endY="600.0" />
+               <Line endY="600.0" layoutX="75.0" />
+               <Line endY="600.0" layoutX="150.0" />
+               <Line endY="600.0" layoutX="225.0" />
+               <Line endY="600.0" layoutX="300.0" />
+               <Line endY="600.0" layoutX="375.0" />
+               <Line endY="600.0" layoutX="450.0" />
+               <Line endY="600.0" layoutX="525.0" />
+               <Line endY="600.0" layoutX="600.0" />
             </Pane>
          </AnchorPane>
       </center>
