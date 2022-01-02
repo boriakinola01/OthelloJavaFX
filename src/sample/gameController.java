@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -18,6 +19,8 @@ public class gameController {
     Label p1Name;
     @FXML
     Label p2Name;
+    @FXML
+    Label turnLabel;
 
     Board board = new Board();
     Player p1 = new Player(Color.WHITE);
@@ -28,6 +31,7 @@ public class gameController {
 
     public gameController(){
         this.boardPane = new Pane();
+        this.turnLabel = new Label();
         initialisePieces(board, p1, p2);
     }
 
@@ -38,39 +42,52 @@ public class gameController {
     }
 
     public void play(MouseEvent mouseEvent){
-        if(board.getNumOfTiles() >= SIZE*SIZE){
+        if(board.getNumOfTiles() == SIZE*SIZE || (!board.movesAvailable(p1) && !board.movesAvailable(p2))){
             endGame();
-        }
-        if(!board.movesAvailable(p1) && !board.movesAvailable(p2)){
-            endGame();
-        }
+            this.boardPane.setDisable(true);
+        } else {
+            if(getTurn() == 1){
+                if(board.movesAvailable(p1)){
+                    playPlayer(p1, mouseEvent);
+                    System.out.println("step 2");
+                }
 
-        if(getTurn() == 1){
-            if(board.movesAvailable(p1)){
-                playPlayer(p1, mouseEvent);
-                System.out.println("step 2");
-            }
-            setTurn(2);
-        } else if(getTurn() == 2){
-            if(board.movesAvailable(p2)){
-                playPlayer(p2, mouseEvent);
-                System.out.println("step 3");
-            }
-            setTurn(1);
-        }
-        System.out.println("step 4");
+            } else if(getTurn() == 2){
+                if(board.movesAvailable(p2)){
+                    playPlayer(p2, mouseEvent);
+                    System.out.println("step 3");
+                }
 
+            }
+            System.out.println("step 4");
+            System.out.println(board.getNumOfTiles());
+        }
     }
 
     public void playPlayer(Player p, MouseEvent e){
-        board.placePiece(p.getColor(), e.getX() / 75, e.getY() / 75);
-        board.setNumOfTiles(board.getNumOfTiles()+1);
-        updateScores();
+        boolean check = board.placePiece(p.getColor(), e.getX() / 75, e.getY() / 75);
+        if(check){
+            updateScores();
+            switchTurn();
+        }
+    }
+
+    public void switchTurn(){
+        if(getTurn() == 1){
+            setTurn(2);
+            this.turnLabel.setText("Black players' turn");
+        }
+        else if(getTurn() == 2){
+            setTurn(1);
+            this.turnLabel.setText("White players' turn");
+        }
     }
 
     public void setNames(String playerOneName, String playerTwoName){
         p1Name.setText(playerOneName);
         p2Name.setText(playerTwoName);
+        p1.setName(playerOneName);
+        p2.setName(playerTwoName);
     }
 
     public void updateScores(){
@@ -91,11 +108,22 @@ public class gameController {
     }
 
     public void restartGame(){
+        board = new Board();
+        p1 = new Player(Color.WHITE);
+        p2 = new Player(Color.BLACK);
+        this.boardPane = new Pane();
+        this.turnLabel = new Label();
         initialisePieces(this.board, p1, p2);
     }
 
     public void endGame(){
-        board.endGame();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Game Over!");
+        if(p2.getScore() > p1.getScore()){
+            alert.setContentText("Player two " + p2.getName() + "wins!!");
+        } else if(p1.getScore() > p2.getScore()){
+            alert.setContentText("Player one: " + p1.getName() + "wins!!");
+        }
     }
 
     public void displayBoard(Board b){
@@ -123,6 +151,7 @@ public class gameController {
         b.setPieces(4, 3, p2.getColor());
         b.setNumOfTiles(4);
         setTurn(1);
+        this.turnLabel.setText("White player goes first");
     }
 
     public int getTurn() {
@@ -132,4 +161,5 @@ public class gameController {
     public void setTurn(int turn) {
         this.turn = turn;
     }
+
 }

@@ -43,37 +43,18 @@ public class Board{
         return false;
     }
 
-    public void placePiece(Color c, double x, double y){
+    public boolean placePiece(Color c, double x, double y){
         int newX, newY;
         newX = (int) x;
         newY = (int) y;
 
-        if(checkMove(c, newX, newY)){
-            if(this.pieces[newX][newY].getFill() == Color.TRANSPARENT){
-                this.pieces[newX][newY].setFill(c);
-                makeMove(c, newX, newY);
-                numOfTiles++;
-            }
+        if(checkMove(c, newX, newY) && (getPieces()[newX][newY].getFill() == Color.TRANSPARENT)){
+            this.pieces[newX][newY].setFill(c);
+            makeMove(c, newX, newY);
+            numOfTiles++;
+            return true;
         }
-    }
-
-    public void endGame(){
-
-    }
-
-    public String getScores(Player p){
-        int x = 0;
-
-        for(int i =0; i < SIZE; i++){
-            for (int j =0; j < SIZE; j++){
-                if(this.pieces[i][j].getFill() == p.getColor())
-                    x++;
-
-            }
-        }
-
-        return Integer.toString(x);
-
+        return false;
     }
 
     public boolean checkMove(Color c, int row, int col){
@@ -137,7 +118,6 @@ public class Board{
 
         return false;
     }
-
 
     public void makeMove(Color c, int row, int col){
         Color opp = null;

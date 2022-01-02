@@ -36,8 +36,9 @@
             </BorderPane.margin>
             <Label prefHeight="17.0" prefWidth="116.0" text="Made by Bee 2021" />
             <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="turnLabel" text="Turn info" />
+            <Region prefHeight="32.0" prefWidth="99.0" HBox.hgrow="ALWAYS" />
             <Button mnemonicParsing="false" onAction="#restartGame" text="Restart" />
-            <Region HBox.hgrow="ALWAYS" />
             <Button mnemonicParsing="false" onAction="#endGame" prefHeight="26.0" prefWidth="89.0" text="End Game" />
          </HBox>
       </bottom>
