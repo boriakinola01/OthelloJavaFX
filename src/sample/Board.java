@@ -49,13 +49,12 @@ public class Board{
         newY = (int) y;
 
         if(checkMove(c, newX, newY)){
-            if(this.pieces[newX][newY].getFill() == Color.TRANSPARENT)
+            if(this.pieces[newX][newY].getFill() == Color.TRANSPARENT){
                 this.pieces[newX][newY].setFill(c);
-
+                makeMove(c, newX, newY);
+                numOfTiles++;
+            }
         }
-
-        makeMove(c, newX, newY);
-        numOfTiles++;
     }
 
     public void endGame(){
@@ -90,7 +89,7 @@ public class Board{
     }
 
     public boolean validMove(Color c, int dRow, int dCol, int row, int col){
-        Color opp = Color.TRANSPARENT;
+        Color opp = null;
         if(c == Color.BLACK)
             opp = Color.WHITE;
         else if(c == Color.WHITE)
@@ -138,6 +137,7 @@ public class Board{
 
         return false;
     }
+
 
     public void makeMove(Color c, int row, int col){
         Color opp = null;

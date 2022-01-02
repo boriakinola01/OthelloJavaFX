@@ -20,9 +20,9 @@ public class gameController {
     Label p2Name;
 
     Board board = new Board();
-    Player p1 = new Player(Color.BLACK);
-    Player p2 = new Player(Color.WHITE);
-    int turn;
+    Player p1 = new Player(Color.WHITE);
+    Player p2 = new Player(Color.BLACK);
+    private int turn;
 
     private static final int SIZE = 8;
 
@@ -33,30 +33,39 @@ public class gameController {
 
     public void initialize(){
         displayBoard(board);
+        p1Score.setText(Integer.toString(p1.getScore()));
+        p2Score.setText(Integer.toString(p2.getScore()));
     }
 
     public void play(MouseEvent mouseEvent){
-        while(board.getNumOfTiles() != SIZE*SIZE){
-            if(turn == 1){
-                if(board.movesAvailable(p1)){
-                    board.placePiece(p1.getColor(), mouseEvent.getX() / 75, mouseEvent.getY() / 75);
-                    board.setNumOfTiles(board.getNumOfTiles()+1);
-                    updateScores();
-                    System.out.println("step 2");
-                }
-                turn = 2;
-            }
-            if(turn == 2){
-                if(board.movesAvailable(p2)){
-                    board.placePiece(p2.getColor(), mouseEvent.getX() / 75, mouseEvent.getY() / 75);
-                    board.setNumOfTiles(board.getNumOfTiles()+1);
-                    updateScores();
-                    System.out.println("step 3");
-                }
-                turn = 1;
-            }
-            System.out.println("step 4");
+        if(board.getNumOfTiles() >= SIZE*SIZE){
+            endGame();
         }
+        if(!board.movesAvailable(p1) && !board.movesAvailable(p2)){
+            endGame();
+        }
+
+        if(getTurn() == 1){
+            if(board.movesAvailable(p1)){
+                playPlayer(p1, mouseEvent);
+                System.out.println("step 2");
+            }
+            setTurn(2);
+        } else if(getTurn() == 2){
+            if(board.movesAvailable(p2)){
+                playPlayer(p2, mouseEvent);
+                System.out.println("step 3");
+            }
+            setTurn(1);
+        }
+        System.out.println("step 4");
+
+    }
+
+    public void playPlayer(Player p, MouseEvent e){
+        board.placePiece(p.getColor(), e.getX() / 75, e.getY() / 75);
+        board.setNumOfTiles(board.getNumOfTiles()+1);
+        updateScores();
     }
 
     public void setNames(String playerOneName, String playerTwoName){
@@ -75,9 +84,10 @@ public class gameController {
                     y++;
             }
         }
-
         p1.setScore(x);
         p2.setScore(y);
+        p1Score.setText(Integer.toString(p1.getScore()));
+        p2Score.setText(Integer.toString(p2.getScore()));
     }
 
     public void restartGame(){
@@ -112,7 +122,14 @@ public class gameController {
         b.setPieces(3, 4, p2.getColor());
         b.setPieces(4, 3, p2.getColor());
         b.setNumOfTiles(4);
-        turn = 1;
+        setTurn(1);
     }
 
+    public int getTurn() {
+        return turn;
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
+    }
 }
