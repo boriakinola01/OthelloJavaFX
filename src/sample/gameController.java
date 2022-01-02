@@ -1,11 +1,19 @@
 package sample;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class gameController {
 
@@ -107,13 +115,19 @@ public class gameController {
         p2Score.setText(Integer.toString(p2.getScore()));
     }
 
-    public void restartGame(){
-        board = new Board();
-        p1 = new Player(Color.WHITE);
-        p2 = new Player(Color.BLACK);
-        this.boardPane = new Pane();
-        this.turnLabel = new Label();
-        initialisePieces(this.board, p1, p2);
+    public void restartGame(ActionEvent event){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("gameScene.fxml"));
+            Parent root = loader.load();
+            gameController game = loader.getController();
+            game.setNames(p1.getName(), p2.getName());
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void endGame(){
