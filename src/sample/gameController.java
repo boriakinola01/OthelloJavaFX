@@ -53,23 +53,16 @@ public class gameController {
     public void play(MouseEvent mouseEvent){
         if(board.getNumOfTiles() == SIZE*SIZE || (!board.movesAvailable(p1) && !board.movesAvailable(p2))){
             endGame();
-            this.boardPane.setDisable(true);
         } else {
             if(getTurn() == 1){
                 if(board.movesAvailable(p1)){
                     playPlayer(p1, mouseEvent);
-                    System.out.println("step 2");
                 }
-
             } else if(getTurn() == 2){
                 if(board.movesAvailable(p2)){
                     playPlayer(p2, mouseEvent);
-                    System.out.println("step 3");
                 }
-
             }
-            System.out.println("step 4");
-            System.out.println(board.getNumOfTiles());
         }
     }
 
