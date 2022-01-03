@@ -34,15 +34,6 @@ public class Board{
         this.numOfTiles = numOfTiles;
     }
 
-    public boolean isNotEmpty(int row, int col){
-        if(this.pieces[row][col].getFill() == Color.BLACK)
-            return true;
-        if(this.pieces[row][col].getFill() == Color.WHITE)
-            return true;
-
-        return false;
-    }
-
     public boolean placePiece(Color c, double x, double y){
         int newX, newY;
         newX = (int) x;

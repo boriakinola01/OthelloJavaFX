@@ -6,14 +6,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
+import java.util.List;
 
 public class gameController {
 
@@ -121,23 +122,47 @@ public class gameController {
             Parent root = loader.load();
             gameController game = loader.getController();
             game.setNames(p1.getName(), p2.getName());
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+            try{
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            } catch (NullPointerException e){
+                List<Window> windows = Stage.getWindows().stream().filter(Window::isShowing).toList();
+                Stage stage = (Stage) windows.get(0);
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void endGame(){
+        ButtonType restart = new ButtonType("Restart", ButtonBar.ButtonData.OK_DONE);
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Game Over!");
+        DialogPane dialog = new DialogPane();
+        dialog.getButtonTypes().addAll(restart);
+
+        Button restartBtn = (Button) dialog.lookupButton(restart);
+        restartBtn.setOnAction(this::restartGame);
+
+        dialog.setHeaderText("Game Over!");
         if(p2.getScore() > p1.getScore()){
-            alert.setContentText("Player two " + p2.getName() + "wins!!");
+            dialog.setHeaderText("We have a winner!!!!!!!!");
+            dialog.setContentText("Player two " + p2.getName() + " wins!!");
         } else if(p1.getScore() > p2.getScore()){
-            alert.setContentText("Player one: " + p1.getName() + "wins!!");
+            dialog.setHeaderText("We have a winner!!!!!!!!");
+            dialog.setContentText("Player one: " + p1.getName() + " wins!!");
+        } else {
+            dialog.setHeaderText("Tie game :(");
+            dialog.setContentText("It's a tie!!");
         }
+        alert.setDialogPane(dialog);
+
+        alert.show();
     }
 
     public void displayBoard(Board b){
